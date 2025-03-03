@@ -30,12 +30,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-white h-screen flex flex-col`}
       >
         <Header />
-        <Squares
-          speed={0.2}
-          squareSize={100}
-          className="absolute inset-0 -z-20"
-        />
-        <div className="bg-black h-full opacity-55 absolute inset-0 -z-10"></div>
         {" "}
           {children}
       </body>
