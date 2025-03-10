@@ -9,7 +9,7 @@ import Avatar from "../../public/avatar.jpeg";
 
 const Hero = () => {
   return (
-    <div className="relative flex flex-col md:flex-row items-center justify-center text-center md:text-left p-6 w-full min-h-screen">
+    <section id="home" className="relative flex flex-col md:flex-row items-center justify-center text-center md:text-left p-6 w-full min-h-screen">
       {/* Background Squares */}
       <Squares
         speed={0.2}
@@ -101,7 +101,7 @@ const Hero = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

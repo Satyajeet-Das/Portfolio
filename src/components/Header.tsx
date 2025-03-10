@@ -1,20 +1,47 @@
 "use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
 const Header = () => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const links = [
-    { href: "/home", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/skills", label: "Skills" },
-    { href: "/education", label: "Education" },
-    { href: "/work", label: "Work" },
-    { href: "/experience", label: "Experience" },
-    { href: "/contact", label: "Contact" },
+    { href: "#home", label: "Home" },
+    { href: "#about", label: "About" },
+    { href: "#skills", label: "Skills" },
+    { href: "#education", label: "Education" },
+    { href: "#work", label: "Work" },
+    { href: "#experience", label: "Experience" },
+    { href: "#contact", label: "Contact" },
   ];
 
+  const handleScroll = () => {
+    if (window.scrollY > lastScrollY) {
+      // Scroll down
+      setIsVisible(false);
+    } else {
+      // Scroll up
+      setIsVisible(true);
+    }
+    setLastScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
   return (
-    <header className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4">
+    <motion.header
+      initial={{ opacity: 1 }}
+      animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
+      transition={{ duration: 0.3 }}
+      className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4"
+    >
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -22,12 +49,12 @@ const Header = () => {
       >
         {/* Responsive Navbar */}
         {links.map(({ href, label }) => (
-          <Link key={href} href={href} className="hover:text-gray-300 transition text-sm md:text-base">
+          <a key={href} href={href} className="hover:text-gray-300 transition text-sm md:text-base">
             {label}
-          </Link>
+          </a>
         ))}
       </motion.div>
-    </header>
+    </motion.header>
   );
 };
 
